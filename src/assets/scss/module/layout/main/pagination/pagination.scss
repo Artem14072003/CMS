@@ -1,0 +1,54 @@
+.nav {
+  display: flex;
+  -ms-flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+  justify-content: flex-end;
+  align-items: baseline;
+  background-color: $color-body;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: 0.05em;
+
+  label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+
+  select {
+    width: 40px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    color: $fonts-primary-variant;
+
+    &:focus {
+      outline: 2px solid $primary;
+    }
+  }
+
+  p.tracking {
+    margin: 0 20px;
+
+    > .page {
+      margin-right: 5px;
+    }
+  }
+
+  button {
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    color: var(--fonts-primary-variant);
+    font-weight: bold;
+    margin-right: 20px;
+    cursor: pointer;
+
+    &:disabled {
+      cursor: default;
+    }
+  }
+}

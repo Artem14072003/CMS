@@ -1,0 +1,30 @@
+@import "header/header";
+@import "main/main";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  background-color: $color-body;
+  color: $fonts-primary-variant;
+}
+
+.wrapper {
+  @include FlexBox(center, stretch, 0, column);
+  margin: 50px 100px 0;
+}
+
+:focus {
+  outline: 2px solid $primary;
+}
+
+:focus:not(:focus-visible){
+  outline: none;
+}

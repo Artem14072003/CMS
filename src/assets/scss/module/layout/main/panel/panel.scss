@@ -1,0 +1,78 @@
+  .control-panel {
+    @include FlexBox(space-between, center);
+    position: relative;
+    padding: 15px 20px;
+
+    .search-panel {
+      @include FlexBox(stretch, center);
+
+      > .filter-search {
+        position: absolute;
+        bottom: -15px;
+
+        input {
+          display: block;
+
+          &:last-child {
+            margin-top: 10px;
+          }
+        }
+      }
+
+      > .filter {
+        margin-right: 20px;
+        font-size: 16px;
+        line-height: 19px;
+        background: transparent;
+        color: $fonts-primary;
+        border: 1px solid $color-border_bottom;
+        border-radius: 6px;
+        padding: 11px 10px 10px 40px;
+        position: relative;
+        cursor: pointer;
+
+        &:before {
+          content: "";
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          top: 10px;
+          left: 10px;
+          //noinspection CssUnknownTarget
+          background: url('/img/filter.svg');
+        }
+      }
+
+      > .search {
+        width: 392px;
+        position: relative;
+
+        > input {
+          width: 100%;
+          padding: 13px 20px 12px 40px;
+          font-size: 12px;
+          line-height: 15px;
+          background: $color-body;
+          border: none;
+          border-radius: 6px;
+          color: $fonts-primary-variant;
+
+          &::placeholder {
+            color: $fonts-primary-variant;
+          }
+        }
+
+        &:after {
+          content: "";
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          top: 23%;
+          left: 3%;
+          border: none;
+          //noinspection CssUnknownTarget
+          background: url(/img/Search.svg) no-repeat center;
+        }
+      }
+    }
+  }
