@@ -1,11 +1,11 @@
 import ControlPanel from "./control-panel/ControlPanel.tsx";
-import CreatePopapp from "./poppap/create-popapp/CreatePopapp.tsx";
 import React, {useCallback, useEffect, useState} from "react";
 import Table from "./table/Table.tsx";
 import SectionPagination from "./section-pagination/SectionPagination.tsx";
 import {ProductService} from "../../../../services/product.service.ts";
 import {QueryClient, useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {IPagination, IProduct} from "../../../../assets/ts/interface.ts";
+import Popapp from "./poppap/Popapp.tsx";
 
 const Main = ({setTotalPrice}: { setTotalPrice: React.Dispatch<React.SetStateAction<number>> }) => {
 
@@ -59,12 +59,13 @@ const Main = ({setTotalPrice}: { setTotalPrice: React.Dispatch<React.SetStateAct
     return (
         <main className={'main'}>
             <ControlPanel setSearch={setSearch} isShow={isShow} setIsShow={setIsShow}/>
-            <Table pagination={pagination} data={data} mutate={mutate} fetchDate={fetchDate} isLoading={isLoading} search={search}/>
+            <Table pagination={pagination} data={data} mutate={mutate} fetchDate={fetchDate} isLoading={isLoading}
+                   search={search}/>
             {!isLoading &&
                 <SectionPagination setPagination={setPagination} length={data.length}/>
             }
-            <CreatePopapp
-                isShow={isShow.create}
+            <Popapp
+                isShow={isShow}
                 setIsShow={setIsShow}
                 product={product}
                 setProduct={setProduct}

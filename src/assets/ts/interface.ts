@@ -16,8 +16,15 @@ export interface IControlPanel {
     setSearch: React.Dispatch<React.SetStateAction<string>>
 }
 
+export interface IPopapp {
+    isShow: IShow
+    setIsShow: React.Dispatch<React.SetStateAction<IShow>>
+    product: IProduct | undefined
+    setProduct: React.Dispatch<React.SetStateAction<IProduct | undefined>>
+}
+
 export interface ICreatePopapp {
-    isShow: boolean,
+    isShow: boolean
     setIsShow: React.Dispatch<React.SetStateAction<{
         filter: boolean, create: boolean, upDate: boolean, error: boolean, win: boolean
     }>>
@@ -29,6 +36,7 @@ export interface IButton {
     children: string,
     isShow?: IShow
     setIsShow?: React.Dispatch<React.SetStateAction<IShow>>
+    disabled?: boolean | undefined
 }
 
 export interface Iinput {
@@ -48,7 +56,7 @@ export interface IProduct {
     description?: string,
     discount: number,
     id: string,
-    image?: [],
+    image?: FileList | string | ArrayBuffer | [],
     price: number,
     title: string,
     units: string

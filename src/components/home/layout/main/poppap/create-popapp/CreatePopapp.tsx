@@ -5,13 +5,15 @@ import Input from "../../../../../../UI/input/Input.tsx";
 import Price from "../../../../../../UI/Price.tsx";
 import {ICreatePopapp, IProduct} from "../../../../../../assets/ts/interface.ts";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {useMutation, useQueryClient} from "@tanstack/react-query";
-import {ProductService} from "../../../../../../services/product.service.ts";
+// import {useMutation, useQueryClient} from "@tanstack/react-query";
+// import {ProductService} from "../../../../../../services/product.service.ts";
+import {RiDeleteBin6Line} from "react-icons/ri"
 
 
 const CreatePopapp = ({isShow, setIsShow, product, setProduct}: ICreatePopapp) => {
 
     const [discont, setDiscont] = useState<boolean>(true)
+    const [delImg, setDelImg] = useState<boolean>(false)
 
     const {
         register,
@@ -31,17 +33,17 @@ const CreatePopapp = ({isShow, setIsShow, product, setProduct}: ICreatePopapp) =
         }
     })
 
-    const queryClient = useQueryClient()
+    // const queryClient = useQueryClient()
 
-    const {mutate} = useMutation(['create product'], (data: IProduct) =>
-            product ? ProductService.update(data, product.id) : ProductService.create(data), {
-            onSuccess: () => {
-                queryClient.invalidateQueries(['product'])
-                setIsShow(prev => ({...prev, create: !isShow}))
-                reset()
-            }
-        }
-    )
+    // const {mutate} = useMutation(['create product'], (data: IProduct) =>
+    //         product ? ProductService.update(data, product.id) : ProductService.create(data), {
+    //         onSuccess: () => {
+    //             queryClient.invalidateQueries(['product'])
+    //             setIsShow(prev => ({...prev, create: !isShow}))
+    //             reset()
+    //         }
+    //     }
+    // )
 
     useEffect(() => {
             if (typeof product === 'undefined') return setDiscont(true)
@@ -57,8 +59,24 @@ const CreatePopapp = ({isShow, setIsShow, product, setProduct}: ICreatePopapp) =
         },
         [product, setValue])
 
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        else if (file.size < 1000000) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = (event: ProgressEvent<FileReader>) => {
+                const result = event.target?.result;
+                if (!result) return;
+                setValue('image', result);
+            };
+        }
+    };
+
     const createElement: SubmitHandler<IProduct> = (data: IProduct) => {
-        mutate(data)
+        // mutate(data)
+        console.log(data);
+        reset()
     }
 
     const getIsShow = () => {
@@ -68,6 +86,21 @@ const CreatePopapp = ({isShow, setIsShow, product, setProduct}: ICreatePopapp) =
         }, 300)
         return setIsShow(prev => ({...prev, create: !isShow}))
     }
+
+    const validateFileSize = (file: string | ArrayBuffer | FileList | undefined | []) =>
+        typeof file === "undefined" || Array.isArray(file) || typeof file === "string" || ArrayBuffer.isView(file)
+            ? true
+            : file instanceof FileList && file.length === 0
+                ? true
+                : file instanceof FileList && file[0] && file[0].size > 1000000
+                    ? "Файл должен быть не более 1 МБ"
+                    : true;
+
+
+    // const isImg = [watch('image')].map((e) =>
+    //     typeof e !== "undefined" ? e : 0)
+
+    console.log()
 
     return (
         <div onClick={getIsShow} className={`popapp ${isShow ? 'is-visible ' : ''}`}>
@@ -131,7 +164,7 @@ const CreatePopapp = ({isShow, setIsShow, product, setProduct}: ICreatePopapp) =
                                     <input type="checkbox" className="checkbox" id="check_mark"/>
                                     <label onClick={() => {
                                         setDiscont(!discont)
-                                        if(!discont) {
+                                        if (!discont) {
                                             resetField('discount')
                                             return setValue('discount', 0)
                                         }
@@ -180,11 +213,47 @@ const CreatePopapp = ({isShow, setIsShow, product, setProduct}: ICreatePopapp) =
                                 {errors.price && <span className={'error'}>{errors.price.message}</span>}
                             </div>
                         </div>
-                        <div className="button_img">
+
+                        <div className={`button_img ${errors.image ? "error" : ''}`}>
+                            {errors.image && <p className={'error'}>{errors.image.message}</p>}
                             <label className="input__file-button">
-                                <span className="input__file-button-text">Добавить изображение</span>
+                                <span
+                                    className="input__file-button-text"
+                                >
+                                    Добавить изображение
+                                </span>
+                                <input
+                                    type="file"
+                                    {...register('image', {
+                                        validate: validateFileSize,
+                                        onChange: (e) => handleImageChange(e),
+                                    })}
+                                    className={'hidden'}
+                                    // accept={"image/*, .png, .jpg, .gif, .web"}
+                                />
                             </label>
                         </div>
+                        {typeof watch('image') === "string" && typeof errors.image === "undefined" ?
+                            <div className={'image'}>
+                                <div
+                                    onMouseEnter={() => setDelImg(true)}
+                                    onMouseLeave={() => setDelImg(false)}
+                                    className={`wrapper ${delImg ? 'dark' : ''}`}
+                                >
+                                    {delImg &&
+                                        <RiDeleteBin6Line
+                                            className={'del'}
+                                            onClick={() => {
+                                                setValue('image', [])
+                                                setDelImg(false)
+                                            }}
+                                        />
+                                    }
+                                    <img src={[watch('image')].join(' ')} alt={'img'}/>
+                                </div>
+                            </div>
+
+                            : <></>}
                     </div>
                     <div className="footer">
                         <div className="text">
