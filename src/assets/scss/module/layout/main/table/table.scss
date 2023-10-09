@@ -36,7 +36,8 @@
 
           button.page,
           button.edit,
-          button.del {
+          button.del,
+          button.not_page {
             width: 20px;
             height: 20px;
             border: none;
@@ -49,6 +50,13 @@
             margin-right: 20px;
 
           }
+
+          button.not_page {
+            background: url("/img/carbon_no-image.svg") no-repeat center;
+            margin-right: 20px;
+            cursor: default;
+          }
+
 
           button.edit {
             background: url("/img/edit.svg") no-repeat center;

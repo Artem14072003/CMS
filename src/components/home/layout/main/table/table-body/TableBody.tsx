@@ -31,6 +31,7 @@ const TableBody = ({search, data, pagination, isLoading, fetchDate, mutate}: {
                                 discount={product.discount}
                                 price={product.price}
                                 units={product.units}
+                                image={product.image}
                                 fetchDate={fetchDate}
                                 mutate={mutate}
                             />

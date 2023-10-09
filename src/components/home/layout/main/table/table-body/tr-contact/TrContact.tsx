@@ -2,7 +2,7 @@
 import Price from "../../../../../../../UI/Price.tsx";
 import {ITrContact} from "../../../../../../../assets/ts/interface.ts";
 
-const TrContact = ({category, count, mutate, discount, id, price, title, units, fetchDate}:ITrContact) => {
+const TrContact = ({category, count, mutate, image, discount, id, price, title, units, fetchDate}:ITrContact) => {
 
     return (
         <tr className="contact">
@@ -27,7 +27,12 @@ const TrContact = ({category, count, mutate, discount, id, price, title, units, 
             </td>
             <td className="icons">
                 <div className="navButton">
-                    <button className="page"/>
+                    {image !== "image/notimage.jpg" ? (
+                        <button className={`page`}/>
+                    ) : (
+                        <button disabled className={`not_page`}/>
+                    )}
+
                     <button className="edit" onClick={() =>fetchDate(id)}/>
                     <button className="del" onClick={() => mutate(id)}/>
                 </div>
