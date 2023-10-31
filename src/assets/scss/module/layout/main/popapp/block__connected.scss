@@ -1,0 +1,62 @@
+.block__connected {
+  width: 100vw;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  block-size: 100vh;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  visibility: hidden;
+  transition: all .4s ease-in-out;
+  opacity: 0;
+  transform: perspective(600px) translate(0, 0) rotateX(0);
+  z-index: 2;
+
+  .contener {
+    width: 350px;
+    height: 350px;
+    margin-left: 0;
+    background-color: #F2F0F9;
+    border-radius: 8px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
+    margin-bottom: 27px;
+    position: relative;
+
+    .correctly_img {
+      display: block;
+      position: relative;
+      background: url("./img/Correctly.svg") no-repeat center;
+      width: 158px;
+      height: 90px;
+      left: 105px;
+      top: 100px;
+    }
+
+    .text__result {
+      display: block;
+      position: relative;
+      width: 253px;
+      height: 22px;
+      left: 50px;
+      top: 150px;
+
+      .text {
+        text-align: center;
+        color: #6E6893;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 22px;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  &.is-visible {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}

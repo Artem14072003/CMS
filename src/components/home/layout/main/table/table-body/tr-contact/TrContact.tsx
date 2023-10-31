@@ -1,6 +1,7 @@
 
 import Price from "../../../../../../../UI/Price.tsx";
 import {ITrContact} from "../../../../../../../assets/ts/interface.ts";
+import {url} from "../../../poppap/update-popapp/UpdatePopapp.tsx";
 
 const TrContact = ({category, count, mutate, image, discount, id, price, title, units, fetchDate}:ITrContact) => {
 
@@ -28,7 +29,7 @@ const TrContact = ({category, count, mutate, image, discount, id, price, title, 
             <td className="icons">
                 <div className="navButton">
                     {image !== "image/notimage.jpg" ? (
-                        <button className={`page`}/>
+                        <button onClick={() => location.href = url+image} className={`page`}/>
                     ) : (
                         <button disabled className={`not_page`}/>
                     )}

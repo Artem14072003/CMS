@@ -1,6 +1,7 @@
 import React from "react";
 import {UseMutateFunction} from "@tanstack/react-query";
 import {AxiosResponse} from "axios";
+import {FieldErrors, UseFormHandleSubmit, UseFormRegister, UseFormSetValue, UseFormWatch} from "react-hook-form";
 
 export interface IShow {
     filter: boolean,
@@ -71,3 +72,28 @@ export interface IPagination {
     start: number,
     end: number
 }
+
+export interface IPopappLayot{
+    getIsShow: () => void,
+    product?: IProduct | undefined,
+    discont: boolean,
+    delImg: boolean,
+    errors: FieldErrors<IProduct>,
+    setDelImg: React.Dispatch<React.SetStateAction<boolean>>,
+    hIC: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    register: UseFormRegister<IProduct>,
+    setValue: UseFormSetValue<IProduct>,
+    url?: string,
+    handleSubmit: UseFormHandleSubmit<IProduct, undefined>,
+    updateDiscount: () => void,
+    validateFileSize: (file: string | ArrayBuffer | FileList | [] | undefined) =>
+        "Файл должен быть не более 1 МБ" | true,
+    watch: UseFormWatch<IProduct>,
+    createElement: (data: IProduct) => void
+}
+
+export interface IPopappLayotMain extends Pick<IPopappLayot,
+    "register" | "errors" | "discont" | "updateDiscount" | "validateFileSize" |
+        "hIC" | "watch" | "setDelImg" | "delImg" | "setValue" | "url"> { }
+
+export interface IPopappLayotFooter extends Pick<IPopappLayot, "watch" | "product"> { }

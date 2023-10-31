@@ -47,7 +47,7 @@ const Main = ({setTotalPrice}: { setTotalPrice: React.Dispatch<React.SetStateAct
     const fetchDate = useCallback((id: string) => {
         const responseDate = async () => {
             const response = await ProductService.getById(id)
-            setIsShow(prevState => ({...prevState, create: true}))
+            setIsShow(prevState => ({...prevState, upDate: true}))
             setProduct(response)
         }
 
